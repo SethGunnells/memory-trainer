@@ -1,0 +1,29 @@
+{
+  "name": "memory-trainer",
+  "version": "1.0.0",
+  "description": "A terminal application for working on memorizing things",
+  "main": "dist/cli.js",
+  "type": "module",
+  "bin": {
+    "memory-trainer": "./dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "tsx src/cli.tsx",
+    "dev": "tsx watch src/cli.tsx",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["memory", "learning", "spaced-repetition", "terminal", "cli"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ink": "^6.4.0",
+    "react": "^19.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.0",
+    "@types/react": "^19.2.2",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
+  }
+}
