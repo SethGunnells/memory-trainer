@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import os from 'os';
-import { AppData, Passage, ConfidenceRating } from './types';
+import { AppData, Passage, ConfidenceRating } from './types.js';
 
 const DATA_DIR = path.join(os.homedir(), '.memory-trainer');
 const DATA_FILE = path.join(DATA_DIR, 'data.json');
@@ -50,7 +50,7 @@ export function getNextPassage(data: AppData): Passage | null {
   const now = new Date();
   
   // Find passages that are due for review
-  const duePassages = data.passages.filter(p => {
+  const duePassages = data.passages.filter((p: Passage) => {
     const reviewDate = new Date(p.nextReviewDate);
     return reviewDate <= now;
   });
@@ -60,7 +60,7 @@ export function getNextPassage(data: AppData): Passage | null {
   }
   
   // Sort by review date (oldest first)
-  duePassages.sort((a, b) => {
+  duePassages.sort((a: Passage, b: Passage) => {
     return new Date(a.nextReviewDate).getTime() - new Date(b.nextReviewDate).getTime();
   });
   
@@ -70,7 +70,7 @@ export function getNextPassage(data: AppData): Passage | null {
 // Calculate next review date based on confidence rating
 export function calculateNextReviewDate(confidence: ConfidenceRating): Date {
   const now = new Date();
-  const daysToAdd = {
+  const daysToAdd: Record<ConfidenceRating, number> = {
     1: 1,    // Tomorrow
     2: 3,    // 3 days
     3: 7,    // 1 week
@@ -91,7 +91,7 @@ export function updatePassageAfterReview(
   passageId: string,
   confidence: ConfidenceRating
 ): AppData {
-  const passages = data.passages.map(p => {
+  const passages = data.passages.map((p: Passage) => {
     if (p.id === passageId) {
       return {
         ...p,

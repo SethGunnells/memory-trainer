@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Text, useInput } from 'ink';
-import { Passage, ConfidenceRating } from './types';
-import { getNextPassage, updatePassageAfterReview, loadData, saveData } from './storage';
+import { Passage, ConfidenceRating } from './types.js';
+import { getNextPassage, updatePassageAfterReview, loadData, saveData } from './storage.js';
 
 type AppState = 'loading' | 'practicing' | 'rating' | 'complete' | 'no-passages';
 
@@ -40,10 +40,10 @@ const App: React.FC = () => {
       }
     } else if (state === 'rating') {
       const rating = parseInt(input, 10);
-      if (rating >= 1 && rating <= 5) {
+      if (rating >= 1 && rating <= 5 && currentPassage) {
         const confidence = rating as ConfidenceRating;
         const data = loadData();
-        const updatedData = updatePassageAfterReview(data, currentPassage!.id, confidence);
+        const updatedData = updatePassageAfterReview(data, currentPassage.id, confidence);
         saveData(updatedData);
         setState('complete');
       }
